@@ -20,6 +20,7 @@ class SpireCodecInstancesTest extends FlatSpec with GeneratorDrivenPropertyCheck
   checkLaws("Codec[ULong]", CodecTests[ULong].codec)
 
   checkLaws("Codec[Safelong]", CodecTests[SafeLong].codec)
+  checkLaws("Codec[Natural]", CodecTests[Natural].codec)
   checkLaws("Codec[Rational]", CodecTests[Rational].codec)
 
 }

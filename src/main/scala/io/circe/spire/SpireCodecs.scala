@@ -1,11 +1,16 @@
 package io.circe.spire
 
-import io.circe.{Decoder, Encoder, Json}
-import spire.math._
+import io.circe.Decoder.Result
+import io.circe._
+import _root_.spire.math._
 
 trait SpireCodecs {
   implicit val safeLongEncoder: Encoder[SafeLong] = new Encoder[SafeLong] {
     def apply(a: SafeLong): Json = Json.fromBigInt(a.toBigInt)
+  }
+
+  implicit val naturalEncoder: Encoder[Natural] = new Encoder[Natural] {
+    def apply(a: Natural): Json = Json.fromBigInt(a.toBigInt)
   }
 
   implicit val rationalEncoder: Encoder[Rational] =
@@ -25,6 +30,12 @@ trait SpireCodecs {
 
   implicit val safeLongDecoder: Decoder[SafeLong] =
     Decoder[BigInt].map(SafeLong.apply)
+
+  implicit val naturalDecoder: Decoder[Natural] = new Decoder[Natural] {
+    def apply(c: HCursor): Result[Natural] =
+      Decoder[BigInt].apply(c)
+        .flatMap(big => if (big < BigInt(0)) Left(DecodingFailure("Must be positive", Nil)) else Right(Natural(big)))
+  }
 
   implicit val rationalDecoder: Decoder[Rational] =
     Decoder[(SafeLong, SafeLong)].map { case (numerator, denominator) => Rational(numerator, denominator) }
