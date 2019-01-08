@@ -17,7 +17,6 @@ val compilerOptions = Seq(
 
 val circeVersion = "0.11.0"
 val spireVersion = "0.16.0"
-val previousCirceBsonVersion = "0.2.0"
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
