@@ -3,6 +3,9 @@ package io.circe.spire
 import io.circe.Decoder.Result
 import io.circe._
 import _root_.spire.math._
+import _root_.spire.math.poly.{PolySparse, Term}
+import _root_.spire.algebra.{Eq, Semiring}
+import _root_.spire.ClassTag
 
 trait SpireCodecs {
   implicit val safeLongEncoder: Encoder[SafeLong] = new Encoder[SafeLong] {
@@ -15,6 +18,12 @@ trait SpireCodecs {
 
   implicit val rationalEncoder: Encoder[Rational] =
     Encoder[(SafeLong, SafeLong)].contramap(r => (r.numerator, r.denominator))
+
+  implicit def termEncoder[A: Encoder]: Encoder[Term[A]] =
+    Encoder[(A, Int)].contramap(t => (t.coeff, t.exp))
+
+  implicit def polynomialEncoder[A: Semiring: Eq: Encoder]: Encoder[Polynomial[A]] =
+    Encoder[List[Term[A]]].contramap(_.terms)
 
   implicit val uByteEncoder: Encoder[UByte] =
     Encoder[Byte].contramap(_.signed)
@@ -39,6 +48,12 @@ trait SpireCodecs {
 
   implicit val rationalDecoder: Decoder[Rational] =
     Decoder[(SafeLong, SafeLong)].map { case (numerator, denominator) => Rational(numerator, denominator) }
+
+  implicit def termDecoder[A: Decoder]: Decoder[Term[A]] =
+    Decoder[(A, Int)].map { case (a, i) => Term(a, i) }
+
+  implicit def polynomialDecoder[A: Semiring: Eq: ClassTag: Decoder]: Decoder[Polynomial[A]] =
+    Decoder[List[Term[A]]].map(terms => PolySparse(terms))
 
   implicit val uByteDecoder: Decoder[UByte] = Decoder[Byte].map(b => new UByte(b))
 
