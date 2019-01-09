@@ -22,6 +22,7 @@ class SpireCodecInstancesTest extends FlatSpec with GeneratorDrivenPropertyCheck
   checkLaws("Codec[Safelong]", CodecTests[SafeLong].codec)
   checkLaws("Codec[Natural]", CodecTests[Natural].codec)
   checkLaws("Codec[Rational]", CodecTests[Rational].codec)
+  checkLaws("Codec[Algebraic]", CodecTests[Algebraic].unserializableCodec)
 
   //See https://github.com/non/spire/issues/756
   //checkLaws("Codec[Polynomial[SafeLong]]", CodecTests[Polynomial[Int]].codec)
