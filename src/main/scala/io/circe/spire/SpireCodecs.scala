@@ -104,7 +104,7 @@ trait SpireCodecs {
       Decoder.instance(_.downField("BigDecimal").as[BigDecimal].right.map(Algebraic.apply))).or(
       Decoder.instance(_.downField("Rational").as[Rational].right.map(Algebraic.apply))).or(
       Decoder.instance(_.downField("Root").as(constantRootDecoder).right.map((Algebraic.unsafeRoot _).tupled))).or(
-      Decoder.instance(_.downField("Neg").as[Algebraic])).or(
+      Decoder.instance(_.downField("Neg").as[Algebraic].right.map(_.unary_-))).or(
       Decoder.instance(_.downField("Add").as(twoExprDecoder(_ + _)))).or(
       Decoder.instance(_.downField("Sub").as(twoExprDecoder(_ - _)))).or(
       Decoder.instance(_.downField("Mul").as(twoExprDecoder(_ * _)))).or(
