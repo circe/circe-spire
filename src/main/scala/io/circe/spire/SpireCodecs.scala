@@ -81,29 +81,29 @@ trait SpireCodecs {
   implicit val algebraicExprDecoder: Decoder[Algebraic] =  {
 
     val constantRootDecoder = Decoder.instance(c => for {
-      poly <- c.downField("poly").as[Polynomial[BigInt]]
-      i <- c.downField("i").as[Int]
-      lb <- c.downField("lb").as[Rational]
-      ub <- c.downField("ub").as[Rational]
+      poly <- c.downField("poly").as[Polynomial[BigInt]].right
+      i <- c.downField("i").as[Int].right
+      lb <- c.downField("lb").as[Rational].right
+      ub <- c.downField("ub").as[Rational].right
     } yield (poly, i, lb, ub))
 
     def twoExprDecoder(constructor: (Algebraic, Algebraic) => Algebraic) =
       Decoder.instance(c => for {
-        a <- c.downField("a").as[Algebraic]
-        b <- c.downField("b").as[Algebraic]
+        a <- c.downField("a").as[Algebraic].right
+        b <- c.downField("b").as[Algebraic].right
       } yield constructor(a, b))
 
     def exprIntDecoder(constructor: (Algebraic, Int) => Algebraic) =
       Decoder.instance(c => for {
-        a <- c.downField("a").as[Algebraic]
-        k <- c.downField("k").as[Int]
+        a <- c.downField("a").as[Algebraic].right
+        k <- c.downField("k").as[Int].right
       } yield constructor(a, k))
 
-    Decoder.instance(_.downField("Long").as[Long].map(Algebraic.apply)).or(
-      Decoder.instance(_.downField("Double").as[Double].map(Algebraic.apply))).or(
-      Decoder.instance(_.downField("BigDecimal").as[BigDecimal].map(Algebraic.apply))).or(
-      Decoder.instance(_.downField("Rational").as[Rational].map(Algebraic.apply))).or(
-      Decoder.instance(_.downField("Root").as(constantRootDecoder).map((Algebraic.unsafeRoot _).tupled))).or(
+    Decoder.instance(_.downField("Long").as[Long].right.map(Algebraic.apply)).or(
+      Decoder.instance(_.downField("Double").as[Double].right.map(Algebraic.apply))).or(
+      Decoder.instance(_.downField("BigDecimal").as[BigDecimal].right.map(Algebraic.apply))).or(
+      Decoder.instance(_.downField("Rational").as[Rational].right.map(Algebraic.apply))).or(
+      Decoder.instance(_.downField("Root").as(constantRootDecoder).right.map((Algebraic.unsafeRoot _).tupled))).or(
       Decoder.instance(_.downField("Neg").as[Algebraic])).or(
       Decoder.instance(_.downField("Add").as(twoExprDecoder(_ + _)))).or(
       Decoder.instance(_.downField("Sub").as(twoExprDecoder(_ - _)))).or(
