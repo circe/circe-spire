@@ -43,6 +43,7 @@ trait SpireCodecs {
   implicit val naturalDecoder: Decoder[Natural] = new Decoder[Natural] {
     def apply(c: HCursor): Result[Natural] =
       Decoder[BigInt].apply(c)
+        .right
         .flatMap(big => if (big < BigInt(0)) Left(DecodingFailure("Must be positive", Nil)) else Right(Natural(big)))
   }
 
