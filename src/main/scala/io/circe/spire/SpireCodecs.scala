@@ -37,7 +37,7 @@ trait SpireCodecs {
       case Add(a, b) => Json.obj("Add" -> Json.obj("a" -> apply(a), "b" -> apply(b)))
       case Sub(a, b) => Json.obj("Sub" -> Json.obj("a" -> apply(a), "b" -> apply(b)))
       case Mul(a, b) => Json.obj("Mul" -> Json.obj("a" -> apply(a), "b" -> apply(b)))
-      case Div(a, b) => Json.obj("Dib" -> Json.obj("a" -> apply(a), "b" -> apply(b)))
+      case Div(a, b) => Json.obj("Div" -> Json.obj("a" -> apply(a), "b" -> apply(b)))
       case KRoot(a, k) => Json.obj("KRoot" -> Json.obj("a" -> apply(a), "k" -> Json.fromInt(k)))
       case Pow(a, k) => Json.obj("Pow" -> Json.obj("a" -> apply(a), "k" -> Json.fromInt(k)))
     }
