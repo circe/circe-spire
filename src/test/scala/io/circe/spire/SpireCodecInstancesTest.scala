@@ -7,7 +7,11 @@ import org.typelevel.discipline.Laws
 import spire.laws.arb._
 import spire.math._
 
-class SpireCodecInstancesTest extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks with SpireCodecs with ArbitraryInstances {
+class SpireCodecInstancesTest
+    extends AnyFlatSpec
+    with ScalaCheckDrivenPropertyChecks
+    with SpireCodecs
+    with ArbitraryInstances {
 
   def checkLaws(name: String, ruleSet: Laws#RuleSet): Unit = ruleSet.all.properties.zipWithIndex.foreach {
     case ((id, prop), 0) => name should s"obey $id" in Checkers.check(prop)
