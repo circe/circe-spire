@@ -15,7 +15,7 @@ val compilerOptions = Seq(
   "-Xfuture"
 )
 
-val circeVersion = "0.11.2"
+val circeVersion = "0.12.3"
 val spireVersion = "0.16.2"
 
 val baseSettings = Seq(
@@ -27,7 +27,6 @@ val baseSettings = Seq(
     _.filterNot(Set("-Ywarn-unused-import"))
   },
   coverageHighlighting := true,
-  coverageScalacPluginVersion := "1.3.1",
   (scalastyleSources in Compile) ++= (unmanagedSourceDirectories in Compile).value
 )
 
@@ -43,7 +42,9 @@ val root = project.in(file("."))
       "io.circe" %% "circe-core" % circeVersion,
       "io.circe" %% "circe-testing" % circeVersion % Test,
       "org.typelevel" %% "spire" % spireVersion,
-      "org.typelevel" %% "spire-laws" % spireVersion % Test
+      "org.typelevel" %% "spire-laws" % spireVersion % Test,
+      "org.scalatest" %% "scalatest" % "3.1.0" % Test,
+      "org.scalatestplus" %% "scalacheck-1-14" % "3.1.0.1" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
