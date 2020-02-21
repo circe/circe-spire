@@ -45,7 +45,7 @@ val root = project
       "io.circe" %% "circe-testing" % circeVersion % Test,
       "org.typelevel" %% "spire" % spireVersion,
       "org.typelevel" %% "spire-laws" % spireVersion % Test,
-      "org.scalatest" %% "scalatest" % "3.1.0" % Test,
+      "org.scalatest" %% "scalatest" % "3.1.1" % Test,
       "org.scalatestplus" %% "scalacheck-1-14" % "3.1.1.0" % Test
     ),
     ghpagesNoJekyll := true,
