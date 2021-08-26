@@ -26,7 +26,7 @@ val compilerOptions = Seq(
   "-language:higherKinds",
   "-unchecked",
   "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
+  "-Ywarn-numeric-widen"
 )
 
 val circeVersion = "0.14.1"
