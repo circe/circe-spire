@@ -28,7 +28,7 @@ class SpireCodecInstancesTest
   checkLaws("Codec[Rational]", CodecTests[Rational].codec)
   checkLaws("Codec[Algebraic]", CodecTests[Algebraic].unserializableCodec)
 
-  //See https://github.com/non/spire/issues/756
-  //checkLaws("Codec[Polynomial[SafeLong]]", CodecTests[Polynomial[Int]].codec)
+  // See https://github.com/non/spire/issues/756
+  // checkLaws("Codec[Polynomial[SafeLong]]", CodecTests[Polynomial[Int]].codec)
 
 }
