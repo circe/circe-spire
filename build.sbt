@@ -29,7 +29,7 @@ val compilerOptions = Seq(
   "-Ywarn-numeric-widen"
 )
 
-val circeVersion = "0.14.1"
+val circeVersion = "0.14.13"
 val spireVersion = "0.17.0"
 
 def priorTo2_13(scalaVersion: String): Boolean =
